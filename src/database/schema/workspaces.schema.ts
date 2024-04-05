@@ -9,5 +9,7 @@ export const Workspaces = pgTable('workspaces', {
   updatedAt: timestamp('updated_at', { mode: 'date', precision: 0, withTimezone: true })
     .default(null)
     .$onUpdateFn(() => new Date()),
-  createdBy: uuid('created_by').references(() => Users.id),
+  createdBy: varchar('created_by', { length: 256 })
+    .unique()
+    .references(() => Users.id),
 });
